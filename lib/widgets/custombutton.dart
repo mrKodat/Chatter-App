@@ -5,12 +5,12 @@ class CustomButton extends StatelessWidget {
   final Color mainColor;
   final String text;
   final Function onpress;
-  CustomButton({this.accentColor, this.text, this.mainColor, this.onpress});
+  CustomButton({required this.accentColor, required this.text, required this.mainColor, required this.onpress});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onpress,
+      onTap: onpress(),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(

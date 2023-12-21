@@ -1,9 +1,6 @@
 import 'package:chat_app/widgets/custombutton.dart';
 import 'package:chat_app/widgets/customtextinput.dart';
-import 'package:edge_alert/edge_alert.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class ChatterSignUp extends StatefulWidget {
   @override
@@ -11,17 +8,13 @@ class ChatterSignUp extends StatefulWidget {
 }
 
 class _ChatterSignUpState extends State<ChatterSignUp> {
-  final _auth = FirebaseAuth.instance;
-  String email;
-  // String username;
-  String password;
-  String name;
+  late String email;
+  late String password;
+  late String name;
   bool signingup = false;
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: signingup,
-      child: Scaffold(
+    return Scaffold(
         body: SingleChildScrollView(
           child: Container(
             height: MediaQuery.of(context).size.height,
@@ -117,36 +110,8 @@ class _ChatterSignUpState extends State<ChatterSignUp> {
                           setState(() {
                             signingup = true;
                           });
-                          try {
-                            final newUser =
-                                await _auth.createUserWithEmailAndPassword(
-                                    email: email, password: password);
-                            if (newUser != null) {
-                              UserUpdateInfo info = UserUpdateInfo();
-                              info.displayName = name;
-                              await newUser.user.updateProfile(info);
-
-                              Navigator.pushNamed(context, '/chat');
-                            }
-                          } catch (e) {
-                            setState(() {
-                              signingup = false;
-                            });
-                            EdgeAlert.show(context,
-                                title: 'Signup Failed',
-                                description: e.toString(),
-                                gravity: EdgeAlert.BOTTOM,
-                                icon: Icons.error,
-                                backgroundColor: Colors.deepPurple[900]);
-                          }
-                        } else {
-                          EdgeAlert.show(context,
-                              title: 'Signup Failed',
-                              description: 'All fields are required.',
-                              gravity: EdgeAlert.BOTTOM,
-                              icon: Icons.error,
-                              backgroundColor: Colors.deepPurple[900]);
-                        }
+                         }
+                        
                       },
                       text: 'sign up',
                       accentColor: Colors.white,
@@ -181,7 +146,7 @@ class _ChatterSignUpState extends State<ChatterSignUp> {
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

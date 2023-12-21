@@ -9,8 +9,8 @@ class ChatterHome extends StatefulWidget {
 
 class _ChatterHomeState extends State<ChatterHome>
     with TickerProviderStateMixin {
-  AnimationController mainController;
-  Animation mainAnimation;
+  late AnimationController mainController;
+  late Animation mainAnimation;
   @override
   void initState() {
     super.initState();
@@ -82,7 +82,7 @@ class _ChatterHomeState extends State<ChatterHome>
                     accentColor: Colors.deepPurple,
                     onpress: () {
                       Navigator.pushReplacementNamed(context, '/login');
-                    },
+                    }, mainColor: Colors.blue,
                   ),
                 ),
                 SizedBox(

@@ -6,7 +6,7 @@ class CustomTextInput extends StatelessWidget {
   final Function userTyped;
   final bool obscure;
   final TextInputType keyboard;
-  CustomTextInput({this.hintText, this.leading,this.userTyped,this.obscure,this.keyboard=TextInputType.text});
+  CustomTextInput({required this.hintText, required this.leading,required this.userTyped,required this.obscure,this.keyboard=TextInputType.text});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +18,7 @@ class CustomTextInput extends StatelessWidget {
       padding: EdgeInsets.only(left: 10),
       width: MediaQuery.of(context).size.width * 0.70,
       child: TextField(
-        onChanged: userTyped,
+        onChanged: userTyped(),
         keyboardType: keyboard,
         onSubmitted: (value) {},
         autofocus: false,

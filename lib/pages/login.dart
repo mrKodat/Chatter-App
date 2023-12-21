@@ -1,9 +1,7 @@
 import 'package:chat_app/widgets/custombutton.dart';
 import 'package:chat_app/widgets/customtextinput.dart';
-import 'package:edge_alert/edge_alert.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+
 
 class ChatterLogin extends StatefulWidget {
   @override
@@ -11,15 +9,13 @@ class ChatterLogin extends StatefulWidget {
 }
 
 class _ChatterLoginState extends State<ChatterLogin> {
-  String email;
-  String password;
+  late String email;
+  late String password;
   bool loggingin = false;
-  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: loggingin,
-      child: Scaffold(
+    return  Scaffold(
         // backgroundColor: Colors.transparent,
         body: SingleChildScrollView(
           child: Container(
@@ -96,36 +92,8 @@ class _ChatterLoginState extends State<ChatterLogin> {
                           setState(() {
                             loggingin = true;
                           });
-                          try {
-                            final loggedUser =
-                                await _auth.signInWithEmailAndPassword(
-                                    email: email, password: password);
-                            if (loggedUser != null) {
-                              setState(() {
-                                loggingin = false;
-                              });
-                              Navigator.pushNamed(context, '/chat');
-                            }
-                          } catch (e) {
-                            setState(() {
-                                loggingin = false;
-                              });
-                            EdgeAlert.show(context,
-                                title: 'Login Failed',
-                                description: e.toString(),
-                                gravity: EdgeAlert.BOTTOM,
-                                icon: Icons.error,
-                                backgroundColor: Colors.deepPurple[900]);
-                          }
-                        } else {
-                          EdgeAlert.show(context,
-                              title: 'Uh oh!',
-                              description:
-                                  'Please enter the email and password.',
-                              gravity: EdgeAlert.BOTTOM,
-                              icon: Icons.error,
-                              backgroundColor: Colors.deepPurple[900]);
-                        }
+                         
+                        } 
                         // Navigator.pushReplacementNamed(context, '/chat');
                       },
                     ),
@@ -159,7 +127,7 @@ class _ChatterLoginState extends State<ChatterLogin> {
             ),
           ),
         ),
-      ),
+      
     );
   }
 }
